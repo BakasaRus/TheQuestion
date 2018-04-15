@@ -8,6 +8,8 @@ import App from './layouts/App'
 Vue.use(Vuetify)
 Vue.use(VueRouter)
 
+Vue.config.devtools = true
+
 new Vue({
   router,
   el: '#app',
