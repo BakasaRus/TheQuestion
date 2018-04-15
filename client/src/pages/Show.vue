@@ -46,6 +46,24 @@
               </v-card>
             </v-flex>
           </v-layout>
+          <v-card>
+            <v-card-text>
+              <v-form v-model="valid" lazy-validation ref="answerForm">
+                <v-text-field
+                  label="Answer"
+                  :placeholder="question.title"
+                  v-model="answer"
+                  :rules="answerRules"
+                  :counter="140"
+                  multi-line
+                  rows="7"
+                ></v-text-field>
+                <v-btn @click="submit" :disabled="!valid">
+                  Submit
+                </v-btn>
+              </v-form>
+            </v-card-text>
+          </v-card>
         </v-flex>
         <v-flex xs4>
           <h1>Nice ads here</h1>
@@ -100,7 +118,30 @@
               like: true
             }
           ]
-        }
+        },
+        valid: false,
+        answer: '',
+        answerRules: [
+          v => !!v || 'Answer is required',
+          v => v.length >= 140 || 'Answer must be more than 140 characters'
+        ]
+      }
+    },
+
+    methods: {
+      submit() {
+        this.question.answers.push({
+          author: {
+            name: 'User Name',
+            about: 'ITMO Student',
+            rating: 35,
+            avatar: 'public/avatars/avatar-02.png'
+          },
+          created_at: window.moment().format('MMMM DD, H:mm'),
+          body: this.answer,
+          rating: 0
+        });
+        this.$refs.answerForm.reset();
       }
     }
   }

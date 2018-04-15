@@ -2,19 +2,19 @@
   <v-app>
     <v-toolbar fixed app>
       <v-toolbar-title v-text="title"></v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn icon large>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-        <v-btn icon large>
-          <v-icon>mdi-pencil</v-icon>
-        </v-btn>
-        <v-btn icon large>
-          <v-icon>mdi-bell</v-icon>
-        </v-btn>
-        <v-btn icon large>
-          <v-icon>mdi-account-circle</v-icon>
-        </v-btn>
+      <v-spacer></v-spacer>
+      <v-btn icon large>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+      <v-btn icon large>
+        <v-icon>mdi-pencil</v-icon>
+      </v-btn>
+      <v-btn icon large>
+        <v-icon>mdi-bell</v-icon>
+      </v-btn>
+      <v-btn icon large>
+        <v-icon>mdi-account-circle</v-icon>
+      </v-btn>
     </v-toolbar>
     <v-content>
       <router-view></router-view>
