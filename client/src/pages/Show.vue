@@ -20,15 +20,15 @@
                   <span>&nbsp;Answer</span>
                 </v-btn>
                 <v-btn flat>
-                  <v-icon>mdi-heart</v-icon>
+                  <v-icon>mdi-heart-outline</v-icon>
                   <span>&nbsp;Like</span>
                 </v-btn>
                 <v-btn flat>
-                  <v-icon>mdi-comment-text-multiple</v-icon>
+                  <v-icon>mdi-comment-text-multiple-outline</v-icon>
                   <span>&nbsp;Comment</span>
                 </v-btn>
                 <v-btn flat>
-                  <v-icon>mdi-bell-ring</v-icon>
+                  <v-icon>mdi-bell-ring-outline</v-icon>
                   <span>&nbsp;Subscribe</span>
                 </v-btn>
               </v-toolbar>
