@@ -1,17 +1,39 @@
 <template>
   <v-layout column>
-    <v-parallax src="http://getwallpapers.com/wallpaper/full/a/3/b/430317.jpg" height="350">
+    <div style="background-image: url(http://getwallpapers.com/wallpaper/full/a/3/b/430317.jpg); background-size: cover;">
       <v-container>
-      <v-layout column mt-5>
-        <h4 class="subheading white--text">{{ question.author }} on {{ question.created_at }}</h4>
-        <h1 class="white--text" mt-3>{{ question.title }}</h1>
-      </v-layout>
+        <v-layout column my-5>
+          <span class="subheading white--text">{{ question.author }} on {{ question.created_at }}</span>
+          <h1 class="white--text" style="min-height: 150px">{{ question.title }}</h1>
+        </v-layout>
       </v-container>
-    </v-parallax>
+    </div>
     <v-container grid-list-xl>
       <v-layout row>
-        <v-flex xs8>
+        <v-flex xs8 style="margin-top: -55px">
           <v-layout column>
+                      <v-flex xs12>
+            <v-card>
+              <v-toolbar card>
+                <v-btn flat>
+                  <v-icon>mdi-comment-plus-outline</v-icon>
+                  <span>&nbsp;Answer</span>
+                </v-btn>
+                <v-btn flat>
+                  <v-icon>mdi-heart</v-icon>
+                  <span>&nbsp;Like</span>
+                </v-btn>
+                <v-btn flat>
+                  <v-icon>mdi-comment-text-multiple</v-icon>
+                  <span>&nbsp;Comment</span>
+                </v-btn>
+                <v-btn flat>
+                  <v-icon>mdi-bell-ring</v-icon>
+                  <span>&nbsp;Subscribe</span>
+                </v-btn>
+              </v-toolbar>
+            </v-card>
+          </v-flex>
             <v-flex xs12 v-for="answer in question.answers" :key="answer.body">
               <v-card>
                 <v-card-title>
@@ -78,7 +100,7 @@
     data () {
       return {
         question: {
-          title: 'Very Interesting Question',
+          title: "In porta ex ac erat mollis, ut ultricies dui finibus. Proin id augue nulla. Nulla urna tellus, condimentum a diam ut, feugiat dignissim urna. Praesent sodales neque vitae tristique dignissim. Duis in semper felis. Praesent id vestibulum sapien, quis posuere purus. Vestibulum non vehicula justo, nec laoreet arcu. In vel hendrerit odio. Aliquam at ullamcorper sapien, ut tempus magna.",
           created_at: 'February 31, 14:88',
           author: 'Anonymous',
           answers: [
@@ -90,7 +112,7 @@
                 avatar: 'public/avatars/avatar-01.png'
               },
               created_at: 'March 01, 13:09',
-              body: 'More Interesting Answer From Student',
+              body: 'More interesting answer from student',
               rating: 113,
               like: false
             },
@@ -102,7 +124,7 @@
                 avatar: 'public/avatars/avatar-05.png'
               },
               created_at: 'March 01, 11:23',
-              body: 'Informative Answer From Teacher With 23-years Experience',
+              body: 'Informative answer from teacher with 23-year work experience',
               rating: 124
             },
             {
@@ -113,7 +135,7 @@
                 avatar: 'public/avatars/avatar-07.png'
               },
               created_at: 'March 01, 11:23',
-              body: 'The Best Answer From The Best PHP Developer',
+              body: 'The best answer from the best PHP developer',
               rating: 435,
               like: true
             }
