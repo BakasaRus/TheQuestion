@@ -6,34 +6,54 @@
           <span class="subheading white--text">{{ question.author }} on {{ question.created_at }}</span>
           <h1 class="white--text" style="min-height: 150px">{{ question.title }}</h1>
         </v-layout>
+        <v-flex xs12 style="margin-bottom: -50px">
+          <v-card>
+            <v-toolbar card>
+              <v-btn flat>
+                <v-icon>mdi-comment-plus-outline</v-icon>
+                <span>&nbsp;Answer</span>
+              </v-btn>
+              <v-btn flat>
+                <v-icon>mdi-heart-outline</v-icon>
+                <span>&nbsp;Like</span>
+              </v-btn>
+              <v-btn flat>
+                <v-icon>mdi-comment-text-multiple-outline</v-icon>
+                <span>&nbsp;Comment</span>
+              </v-btn>
+              <v-btn flat>
+                <v-icon>mdi-bell-ring-outline</v-icon>
+                <span>&nbsp;Subscribe</span>
+              </v-btn>
+              <v-spacer></v-spacer>
+              <v-menu bottom left>
+                <v-btn icon slot="activator">
+                  <v-icon>mdi-dots-vertical</v-icon>
+                </v-btn>
+                <v-list>
+                  <v-list-tile @click="">
+                    <v-list-tile-title>Abuse</v-list-tile-title>
+                  </v-list-tile>
+                  <v-list-tile @click="">
+                    <v-list-tile-title>Close answers</v-list-tile-title>
+                  </v-list-tile>
+                  <v-list-tile @click="">
+                    <v-list-tile-title>Delete</v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
+              </v-menu>
+            </v-toolbar>
+          </v-card>
+        </v-flex>
       </v-container>
     </div>
-    <v-container grid-list-xl>
+    <v-container grid-list-xl mt-5>
       <v-layout row>
-        <v-flex xs8 style="margin-top: -55px">
+        <v-flex xs8>
           <v-layout column>
-                      <v-flex xs12>
-            <v-card>
-              <v-toolbar card>
-                <v-btn flat>
-                  <v-icon>mdi-comment-plus-outline</v-icon>
-                  <span>&nbsp;Answer</span>
-                </v-btn>
-                <v-btn flat>
-                  <v-icon>mdi-heart-outline</v-icon>
-                  <span>&nbsp;Like</span>
-                </v-btn>
-                <v-btn flat>
-                  <v-icon>mdi-comment-text-multiple-outline</v-icon>
-                  <span>&nbsp;Comment</span>
-                </v-btn>
-                <v-btn flat>
-                  <v-icon>mdi-bell-ring-outline</v-icon>
-                  <span>&nbsp;Subscribe</span>
-                </v-btn>
-              </v-toolbar>
-            </v-card>
-          </v-flex>
+            <v-flex xs12>
+              <span class="title">{{ question.answers.length }} answers</span>
+            </v-flex>
             <v-flex xs12 v-for="answer in question.answers" :key="answer.body">
               <v-card>
                 <v-card-title>

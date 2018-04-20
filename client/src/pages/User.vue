@@ -1,12 +1,12 @@
 <template>
   <v-layout column>
-    <div :style="coverStyle">
+    <v-flex xs12 :style="coverStyle">
       <v-container>
-        <v-layout column justify-end style="min-height: 500px">
+        <v-layout column justify-end style="min-height: 300px;">
           <v-flex xs12>
             <v-layout row align-end>
-              <v-avatar size="200px" style="margin-bottom: -90px">
-                <img src="public/avatars/avatar-05.png" style="background-color: white">
+              <v-avatar size="200px" style="margin-bottom: -50px; z-index: 1">
+                <img :src="user.avatar">
               </v-avatar>
               <v-layout column mx-5>
                 <h1 class="display-2 white--text">{{ user.name }}</h1>
@@ -18,35 +18,67 @@
               </v-layout>
             </v-layout>
           </v-flex>
+          <v-flex xs12 mt-3 style="margin-bottom: -50px">
+            <v-card>
+              <v-toolbar card style="padding-left: 200px">
+                <v-btn flat>
+                  <v-badge color="primary">
+                    <span slot="badge" dark small v-if="user.questions" v-text="user.questions"></span>
+                    <v-icon>mdi-comment-question-outline</v-icon>
+                    <span>&nbsp;Questions</span>
+                  </v-badge>
+                </v-btn>
+                <v-btn flat>
+                  <v-badge color="primary">
+                    <span slot="badge" dark small v-if="user.answers" v-text="user.answers"></span>
+                    <v-icon>mdi-comment-check-outline</v-icon>
+                    <span>&nbsp;Answers</span>
+                  </v-badge>
+                </v-btn>
+                <v-btn flat>
+                  <v-badge color="primary">
+                    <span slot="badge" dark small v-if="user.subscribers" v-text="user.subscribers"></span>
+                    <v-icon>mdi-account-multiple-outline</v-icon>
+                    <span>&nbsp;Subscribers</span>
+                  </v-badge>
+                </v-btn>
+                <v-btn flat>
+                  <v-badge color="primary">
+                    <span slot="badge" dark small v-if="user.subscribtions" v-text="user.subscribtions"></span>
+                    <v-icon>mdi-bell-ring-outline</v-icon>
+                    <span>&nbsp;Subscribtions</span>
+                  </v-badge>
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-menu bottom left>
+                  <v-btn icon slot="activator">
+                    <v-icon>mdi-dots-vertical</v-icon>
+                  </v-btn>
+                  <v-list>
+                    <v-list-tile @click="">
+                      <v-list-tile-title>Abuse</v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile @click="">
+                      <v-list-tile-title>Deactivate</v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile @click="">
+                      <v-list-tile-title>Change profile</v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile @click="">
+                      <v-list-tile-title>Change cover</v-list-tile-title>
+                    </v-list-tile>
+                  </v-list>
+                </v-menu>
+              </v-toolbar>
+            </v-card>
+          </v-flex>
         </v-layout>
       </v-container>
-    </div>
-    <v-container grid-list-xl>
+    </v-flex>
+    <v-container grid-list-xl mt-5>
       <v-layout row>
         <v-flex xs8>
           <v-layout column>
-            <v-flex xs12>
-              <v-card>
-                <v-toolbar card>
-                  <v-btn flat>
-                    <v-icon>mdi-comment-plus-outline</v-icon>
-                    <span>&nbsp;Answer</span>
-                  </v-btn>
-                  <v-btn flat>
-                    <v-icon>mdi-heart-outline</v-icon>
-                    <span>&nbsp;Like</span>
-                  </v-btn>
-                  <v-btn flat>
-                    <v-icon>mdi-comment-text-multiple-outline</v-icon>
-                    <span>&nbsp;Comment</span>
-                  </v-btn>
-                  <v-btn flat>
-                    <v-icon>mdi-bell-ring-outline</v-icon>
-                    <span>&nbsp;Subscribe</span>
-                  </v-btn>
-                </v-toolbar>
-              </v-card>
-            </v-flex>
           </v-layout>
         </v-flex>
         <v-flex xs4>
@@ -61,12 +93,16 @@
   export default {
     data () {
       return {
+        curTab: null,
         user: {
           name: 'John Doe',
-          about: 'Vestibulum sem metus, tempus vel nisl nec, tristique dapibus enim. Maecenas aliquet nisl vel ante dapibus convallis. Vestibulum maximus ligula nec odio laoreet, nec hendrerit ipsum dictum. Donec ut augue vestibulum diam blandit aliquet. Nullam ipsum sem, tempus id rhoncus ac, vestibulum et urna. Proin id lorem ullamcorper, consectetur dolor ac, luctus dolor. Mauris ipsum ipsum, sodales sollicitudin vestibulum tristique, semper at urna. Mauris vitae risus ex. Pellentesque nibh purus, imperdiet nec ullamcorper quis, sodales a dui. Etiam interdum pulvinar sapien, vitae scelerisque ex. Mauris finibus, eros in bibendum egestas, neque nulla malesuada ante, at ullamcorper tellus ligula vitae orci. Fusce sed rhoncus lacus. Quisque id ex vulputate, hendrerit erat et, cursus arcu. Maecenas molestie aliquet sapien in sagittis. Donec auctor suscipit metus vitae euismod. Aenean eu elit neque.',
+          about: 'Vestibulum sem metus, tempus vel nisl nec, tristique dapibus enim. Maecenas aliquet nisl vel ante dapibus convallis. Vestibulum maximus ligula nec odio laoreet, nec hendrerit ipsum dictum. Donec ut augue vestibulum diam blandit aliquet.',
           rating: 265,
-          avatar: 'public/avatars/avatar-01.png',
-          cover: 'https://lh3.googleusercontent.com/AO19I73Kpi-8whXtmhfy1jw99ld8KgYXjyot2mS_OOV3MXKnUcC5vyTQoTRHDclX_7eU=h900'
+          avatar: 'https://pp.userapi.com/c836629/v836629663/7fbc/AQzbghWIXnE.jpg',
+          cover: 'https://lh3.googleusercontent.com/AO19I73Kpi-8whXtmhfy1jw99ld8KgYXjyot2mS_OOV3MXKnUcC5vyTQoTRHDclX_7eU=h900',
+          questions: 12,
+          answers: 35,
+          subscribers: 4
         }
       }
     },
