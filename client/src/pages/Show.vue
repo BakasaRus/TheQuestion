@@ -9,19 +9,19 @@
         <v-flex xs12 style="margin-bottom: -50px">
           <v-card>
             <v-toolbar card>
-              <v-btn flat icon="$vuetify.breakpoint.xsOnly">
+              <v-btn flat :icon="$vuetify.breakpoint.xsOnly">
                 <v-icon>mdi-comment-plus-outline</v-icon>
                 <span v-if="$vuetify.breakpoint.smAndUp">&nbsp;Answer</span>
               </v-btn>
-              <v-btn flat icon="$vuetify.breakpoint.xsOnly">
+              <v-btn flat :icon="$vuetify.breakpoint.xsOnly">
                 <v-icon>mdi-heart-outline</v-icon>
                 <span v-if="$vuetify.breakpoint.smAndUp">&nbsp;Like</span>
               </v-btn>
-              <v-btn flat icon="$vuetify.breakpoint.xsOnly">
+              <v-btn flat :icon="$vuetify.breakpoint.xsOnly">
                 <v-icon>mdi-comment-text-multiple-outline</v-icon>
                 <span v-if="$vuetify.breakpoint.smAndUp">&nbsp;Comment</span>
               </v-btn>
-              <v-btn flat icon="$vuetify.breakpoint.xsOnly">
+              <v-btn flat :icon="$vuetify.breakpoint.xsOnly">
                 <v-icon>mdi-bell-ring-outline</v-icon>
                 <span v-if="$vuetify.breakpoint.smAndUp">&nbsp;Subscribe</span>
               </v-btn>
