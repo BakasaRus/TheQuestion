@@ -9,21 +9,21 @@
         <v-flex xs12 style="margin-bottom: -50px">
           <v-card>
             <v-toolbar card>
-              <v-btn flat>
+              <v-btn flat icon="$vuetify.breakpoint.xsOnly">
                 <v-icon>mdi-comment-plus-outline</v-icon>
-                <span>&nbsp;Answer</span>
+                <span v-if="$vuetify.breakpoint.smAndUp">&nbsp;Answer</span>
               </v-btn>
-              <v-btn flat>
+              <v-btn flat icon="$vuetify.breakpoint.xsOnly">
                 <v-icon>mdi-heart-outline</v-icon>
-                <span>&nbsp;Like</span>
+                <span v-if="$vuetify.breakpoint.smAndUp">&nbsp;Like</span>
               </v-btn>
-              <v-btn flat>
+              <v-btn flat icon="$vuetify.breakpoint.xsOnly">
                 <v-icon>mdi-comment-text-multiple-outline</v-icon>
-                <span>&nbsp;Comment</span>
+                <span v-if="$vuetify.breakpoint.smAndUp">&nbsp;Comment</span>
               </v-btn>
-              <v-btn flat>
+              <v-btn flat icon="$vuetify.breakpoint.xsOnly">
                 <v-icon>mdi-bell-ring-outline</v-icon>
-                <span>&nbsp;Subscribe</span>
+                <span v-if="$vuetify.breakpoint.smAndUp">&nbsp;Subscribe</span>
               </v-btn>
               <v-spacer></v-spacer>
               <v-menu bottom left>
@@ -48,8 +48,8 @@
       </v-container>
     </div>
     <v-container grid-list-xl mt-5>
-      <v-layout row>
-        <v-flex xs8>
+      <v-layout row wrap>
+        <v-flex xs12 lg8>
           <v-layout column>
             <v-flex xs12>
               <span class="title">{{ question.answers.length }} answers</span>
@@ -58,12 +58,12 @@
               <v-card>
                 <v-card-title>
                   <v-layout row>
-                    <v-flex xs1>
+                    <v-flex>
                       <v-avatar size="50px">
                         <img :src="answer.author.avatar" :alt="answer.author.name">
                       </v-avatar>
                     </v-flex>
-                    <v-flex xs10>
+                    <v-flex xs12>
                       <span class="body-2">{{ answer.author.name }}</span>&nbsp;
                       <span class="body-1">
                         <v-icon color="green">mdi-star-outline</v-icon>
@@ -107,7 +107,7 @@
             </v-card-text>
           </v-card>
         </v-flex>
-        <v-flex xs4>
+        <v-flex xs12 lg4>
           <h1>Nice ads here</h1>
         </v-flex>
       </v-layout>
