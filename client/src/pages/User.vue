@@ -79,6 +79,23 @@
       <v-layout row>
         <v-flex xs8>
           <v-layout column>
+            <v-flex xs12 v-for="question in questions" :key="question.title">
+              <v-card hover>
+                <v-card-media src="http://getwallpapers.com/wallpaper/full/a/3/b/430317.jpg" height="300px">
+                    <v-layout column ma-2 align-content-space-between>
+                      <v-flex xs12>
+                        <span class="display-1 white--text" v-text='question.title'></span>
+                      </v-flex>
+                      <v-flex xs12>
+                        <v-chip small outline color="white" v-for="theme in question.themes" :key="theme">{{ theme }}</v-chip>
+                      </v-flex>
+                    </v-layout>
+                </v-card-media>
+                <v-card-text>
+                  <span class="subheading">{{ question.answer | cutAnswer }}</span>
+                </v-card-text>
+              </v-card>
+            </v-flex>
           </v-layout>
         </v-flex>
         <v-flex xs4>
@@ -103,13 +120,26 @@
           questions: 12,
           answers: 35,
           subscribers: 4
-        }
+        },
+        questions: [{
+          title: 'How can we make Tye angry?',
+          themes: ['Education', 'Lifehacks', 'Why did I ask it?'],
+          answer: `Nunc nec nisi lorem. In id blandit erat. Ut molestie mollis lectus, et faucibus nisl tincidunt id. In orci diam, ultricies et fringilla eu, mattis et ex. In hac habitasse platea dictumst. Nam a ante vestibulum, tempus est a, vulputate purus. Vestibulum ornare diam in diam blandit pretium. Vestibulum accumsan nec nisl nec rhoncus. Cras tincidunt velit lacus, sit amet egestas odio consectetur eu. Morbi blandit ut ante sed aliquam.
+
+Aenean id velit varius, fringilla justo sed, iaculis purus. Donec dictum tellus non venenatis pulvinar. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus convallis faucibus dolor, eu congue risus finibus pretium. Nulla enim diam, consequat vel leo non, maximus sollicitudin ipsum. In urna dolor, aliquam quis tortor et, imperdiet lacinia dui. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris quis nibh elit. Aliquam erat.`
+        }]
       }
     },
 
     computed: {
       coverStyle() {
         return 'background-image: url(' + this.user.cover + '); background-size: cover; background-position: center';
+      }
+    },
+
+    filters: {
+      cutAnswer(answer) {
+        return answer.split(" ").slice(0, 20).join(" ") + " ..."; 
       }
     }
   }

@@ -9,21 +9,21 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
-    "@mdi/font": "^2.2.43",
+    "@mdi/font": "^2.3.54",
     "moment": "^2.22.1",
     "vue": "^2.5.3",
     "vue-router": "^3.0.1",
-    "vuetify": "^1.0.0"
+    "vuetify": "^1.0.17"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
+    "babel-core": "^6.26.3",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
     "babel-preset-stage-2": "^6.24.1",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "file-loader": "^1.1.4",
-    "node-sass": "^4.5.3",
+    "node-sass": "^4.9.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.5",
