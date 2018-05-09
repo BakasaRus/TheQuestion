@@ -9,7 +9,7 @@
                 <v-layout fill-height>
                   <v-flex xs12 align-end>
                     <span class="subheading white--text" v-text='question.theme'></span><br>
-                    <span class="title white--text" v-text='question.title'></span>
+                    <span class="display-1 white--text" v-text='question.title'></span>
                   </v-flex>
                 </v-layout>
               </v-container>

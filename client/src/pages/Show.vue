@@ -5,6 +5,9 @@
         <v-layout column my-5>
           <span class="subheading white--text">{{ question.author }} on {{ question.created_at }}</span>
           <h1 class="white--text" style="min-height: 150px">{{ question.title }}</h1>
+          <v-layout row>
+            <v-chip small outline color="white" v-for="theme in question.themes" :key="theme">{{ theme }}</v-chip>
+          </v-layout>
         </v-layout>
         <v-flex xs12 style="margin-bottom: -50px">
           <v-card>
@@ -120,9 +123,10 @@
     data () {
       return {
         question: {
-          title: "In porta ex ac erat mollis, ut ultricies dui finibus. Proin id augue nulla. Nulla urna tellus, condimentum a diam ut, feugiat dignissim urna. Praesent sodales neque vitae tristique dignissim. Duis in semper felis. Praesent id vestibulum sapien, quis posuere purus. Vestibulum non vehicula justo, nec laoreet arcu. In vel hendrerit odio. Aliquam at ullamcorper sapien, ut tempus magna.",
+          title: "In porta ex ac erat mollis, ut ultricies dui finibus. Proin id augue nulla. Nulla urna tellus, condimentum a diam ut, feugiat dignissim urna.",
           created_at: 'February 31, 14:88',
           author: 'Anonymous',
+          themes: ['Education', 'Lifehacks', 'Why did I ask it?'],
           answers: [
             {
               author: {
