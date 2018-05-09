@@ -13,6 +13,7 @@
     "moment": "^2.22.1",
     "vue": "^2.5.3",
     "vue-router": "^3.0.1",
+    "vue-stash": "^2.0.1-beta",
     "vuetify": "^1.0.17"
   },
   "devDependencies": {

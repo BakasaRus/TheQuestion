@@ -5,7 +5,9 @@ import 'vuetify/dist/vuetify.css'
 import router from './router'
 import App from './layouts/App'
 import Moment from 'moment'
+import VueStash from 'vue-stash';
 
+Vue.use(VueStash)
 Vue.use(Vuetify)
 Vue.use(VueRouter)
 
@@ -15,5 +17,11 @@ window.moment = Moment
 new Vue({
   router,
   el: '#app',
-  render: h => h(App)
+  render: h => h(App),
+  data: {
+    store: {
+      user: false,
+      server: 'localhost:8008'
+    }
+  }
 })

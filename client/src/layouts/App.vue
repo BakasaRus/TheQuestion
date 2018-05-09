@@ -12,8 +12,11 @@
       <v-btn icon large>
         <v-icon>mdi-bell</v-icon>
       </v-btn>
-      <v-btn icon large>
-        <v-icon>mdi-account-circle</v-icon>
+      <v-btn icon large v-if="this.user">
+        <v-icon >mdi-account-circle</v-icon>
+      </v-btn>      
+      <v-btn icon large v-else>
+        <v-icon>mdi-login</v-icon>
       </v-btn>
     </v-toolbar>
     <v-content>
@@ -21,10 +24,6 @@
     </v-content>
     <v-footer height="auto" class="grey darken-3">
       <v-layout row wrap justify-center>
-        <v-btn color="white" flat to="/">Home</v-btn>
-        <v-btn color="white" flat to="/show-question">Question</v-btn>
-        <v-btn color="white" flat to="/user">User</v-btn>
-        <v-btn color="white" flat to="/login">Login</v-btn>
         <v-flex xs12 py-3 text-xs-center white--text>
           &copy;2018 — <strong>{{ title }}</strong>
         </v-flex>
@@ -35,6 +34,7 @@
 
 <script>
   export default {
+    store: ['user'],
     data () {
       return {
         title: 'The Question'
