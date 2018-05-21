@@ -3,13 +3,13 @@
     <v-container grid-list-xl>
       <v-layout row wrap>
         <v-flex xs12 md6 lg4 v-for="question in questions" :key="question.title">
-          <v-card hover>
+          <v-card hover :to="'question/' + question.id">
             <v-card-media src="http://getwallpapers.com/wallpaper/full/a/3/b/430317.jpg" height="300px">
               <v-container fill-height fluid>
                 <v-layout fill-height>
                   <v-flex xs12 align-end>
-                    <span class="subheading white--text" v-text='question.theme'></span><br>
-                    <span class="display-1 white--text" v-text='question.title'></span>
+                    <p class="caption grey--text" v-text='question.themes[0].name'></p>
+                    <span class="title white--text" v-text='question.text'></span>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -27,7 +27,7 @@
               <v-container fill-height fluid>
                 <v-layout fill-height>
                   <v-flex xs12 align-end flexbox>
-                    <span class="title white--text" v-text='question.title'></span>
+                    <span class="title white--text" v-text='question.text'></span>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -44,14 +44,14 @@
     data () {
       return {
         questions: [
-          { title: 'My first question', theme: 'World' },
-          { title: 'Interesting question', theme: 'Music' },
-          { title: 'What if Russians do not ride on bears?' , theme: 'Russia' },
-          { title: 'Another interesting question', theme: 'Music' },
-          { title: 'How can we make Tye angry?', theme: 'Life' },
-          { title: 'Is Earth flat?', theme: 'Science' }
         ]
       }
+    },
+
+    created() {
+      window.axios.get('/api/questions')
+                  .then(response => this.questions = response.data)
+                  .catch(error => console.log(error));
     }
   }
 </script>

@@ -1,23 +1,36 @@
 <template>
   <v-app>
     <v-toolbar fixed app>
-      <v-toolbar-title v-text="title"></v-toolbar-title>
+      <v-toolbar-title v-text="title">
+        <router-link to="/" exact></router-link>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon large>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-      <v-btn icon large>
-        <v-icon>mdi-pencil</v-icon>
-      </v-btn>
-      <v-btn icon large>
-        <v-icon>mdi-bell</v-icon>
-      </v-btn>
-      <v-btn icon large v-if="this.user">
-        <v-icon >mdi-account-circle</v-icon>
-      </v-btn>      
-      <v-btn icon large v-else>
-        <v-icon>mdi-login</v-icon>
-      </v-btn>
+      <v-tooltip bottom>
+        <v-btn icon large slot="activator"><v-icon>mdi-magnify</v-icon></v-btn>
+        <span>Поиск</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <v-btn icon large slot="activator"><v-icon>mdi-pencil</v-icon></v-btn>
+        <span>Задать вопрос</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <v-btn icon large slot="activator"><v-icon>mdi-bell</v-icon></v-btn>
+        <span>Уведомления</span>
+      </v-tooltip>
+      <template v-if="this.user">
+        <v-tooltip bottom>
+          <v-btn icon large :to="'/user/' + this.user.id" slot="activator"><v-icon >mdi-account-circle</v-icon></v-btn>
+          <span>{{ this.user.name }} {{ this.user.surname }}</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <v-btn icon large @click="logout" slot="activator"><v-icon>mdi-logout</v-icon></v-btn>
+          <span>Выйти</span>
+        </v-tooltip>
+      </template>
+      <v-tooltip bottom v-else>
+        <v-btn icon large to="/login" slot="activator"><v-icon>mdi-login</v-icon></v-btn>
+        <span>Войти</span>
+      </v-tooltip>
     </v-toolbar>
     <v-content>
       <router-view></router-view>
@@ -38,6 +51,19 @@
     data () {
       return {
         title: 'The Question'
+      }
+    },
+
+    methods: {
+      logout() {
+        window.axios.get('/api/logout')
+            .then(response => {
+              this.tokens = false;
+              this.user = false;
+              window.localStorage.removeItem('tokens');
+              window.axios.defaults.headers.common['Authorization'] = '';
+            })
+            .catch(error => console.log(error));
       }
     }
   }

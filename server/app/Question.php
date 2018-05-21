@@ -16,6 +16,11 @@ class Question extends Model
     	return $this->manyMorph(Comment::class, 'commentable');
     }
 
+    public function subscribers()
+    {
+        return $this->manyMorph(Subscription::class, 'subscribeable');
+    }
+
     public function answers()
     {
     	return $this->hasMany(Answer::class);

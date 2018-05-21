@@ -17,6 +17,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/questions', function() {
-	return App\Question::all();
+Route::middleware('auth:api')->get('/logout', function (Request $request) {
+    $request->user()->token()->revoke();
+    return ['message' => 'Success!'];
 });
+
+Route::get('/questions', 'QuestionsController@index');
+Route::get('/questions/{question}', 'QuestionsController@show');

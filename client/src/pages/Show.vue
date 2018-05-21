@@ -3,10 +3,10 @@
     <div style="background-image: url(http://getwallpapers.com/wallpaper/full/a/3/b/430317.jpg); background-size: cover;">
       <v-container>
         <v-layout column my-5>
-          <span class="subheading white--text">{{ question.author }} on {{ question.created_at }}</span>
-          <h1 class="white--text" style="min-height: 150px">{{ question.title }}</h1>
+          <span class="subheading white--text">{{ question.author.name }} {{ question.author.surname }} on {{ question.created_at }}</span>
+          <h1 class="white--text" style="min-height: 150px">{{ question.text }}</h1>
           <v-layout row>
-            <v-chip small outline color="white" v-for="theme in question.themes" :key="theme">{{ theme }}</v-chip>
+            <v-chip small outline color="white" v-for="theme in question.themes" :key="theme">{{ theme.name }}</v-chip>
           </v-layout>
         </v-layout>
         <v-flex xs12 style="margin-bottom: -50px">
@@ -57,7 +57,7 @@
             <v-flex xs12>
               <span class="title">{{ question.answers.length }} answers</span>
             </v-flex>
-            <v-flex xs12 v-for="answer in question.answers" :key="answer.body">
+            <v-flex xs12 v-for="answer in question.answers" :key="answer.id">
               <v-card>
                 <v-card-title>
                   <v-layout row>
@@ -120,51 +120,11 @@
 
 <script>
   export default {
+    props: ['id'],
+
     data () {
       return {
-        question: {
-          title: "In porta ex ac erat mollis, ut ultricies dui finibus. Proin id augue nulla. Nulla urna tellus, condimentum a diam ut, feugiat dignissim urna.",
-          created_at: 'February 31, 14:88',
-          author: 'Anonymous',
-          themes: ['Education', 'Lifehacks', 'Why did I ask it?'],
-          answers: [
-            {
-              author: {
-                name: 'John Doe',
-                about: 'MIT Student',
-                rating: 265,
-                avatar: 'public/avatars/avatar-01.png'
-              },
-              created_at: 'March 01, 13:09',
-              body: 'More interesting answer from student',
-              rating: 113,
-              like: false
-            },
-            {
-              author: {
-                name: 'Jane Doe',
-                about: 'Teacher',
-                rating: 186,
-                avatar: 'public/avatars/avatar-05.png'
-              },
-              created_at: 'March 01, 11:23',
-              body: 'Informative answer from teacher with 23-year work experience',
-              rating: 124
-            },
-            {
-              author: {
-                name: 'Taylor Otwell',
-                about: 'Creator of Laravel',
-                rating: 9000,
-                avatar: 'public/avatars/avatar-07.png'
-              },
-              created_at: 'March 01, 11:23',
-              body: 'The best answer from the best PHP developer',
-              rating: 435,
-              like: true
-            }
-          ]
-        },
+        question: {},
         valid: false,
         answer: '',
         answerRules: [
@@ -172,6 +132,12 @@
           v => v.length >= 140 || 'Answer must be more than 140 characters'
         ]
       }
+    },
+
+    created() {
+      window.axios.get('/api/questions/' + this.id)
+                  .then(response => this.question = response.data)
+                  .catch(error => console.log(error));
     },
 
     methods: {

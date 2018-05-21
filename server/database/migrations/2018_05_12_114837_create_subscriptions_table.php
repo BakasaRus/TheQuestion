@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVotesTable extends Migration
+class CreateSubscriptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,15 @@ class CreateVotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('votes', function (Blueprint $table) {
+        Schema::create('subscriptions', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('status', ['up', 'down']);
             $table->integer('user_id')->unsigned();
-            $table->morphs('voteable');
+            $table->morphs('subscribeable');
             $table->timestamps();
 
             $table->foreign('user_id')
                     ->references('id')
                     ->on('users');
-
-
         });
     }
 
@@ -35,9 +32,9 @@ class CreateVotesTable extends Migration
      */
     public function down()
     {
-        Schema::table('votes', function (Blueprint $table) {
+        Schema::table('subscriptions', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
         });
-        Schema::dropIfExists('votes');
+        Schema::dropIfExists('subscriptions');
     }
 }

@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Vote extends Model
+class Subscription extends Model
 {
-    public function voteable()
+    public function subscribeable()
     {
     	return $this->morphTo();
     }
