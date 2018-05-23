@@ -10,7 +10,7 @@
         <span>Поиск</span>
       </v-tooltip>
       <v-tooltip bottom>
-        <v-btn icon large slot="activator"><v-icon>mdi-pencil</v-icon></v-btn>
+        <v-btn icon large to="/question/ask" slot="activator"><v-icon>mdi-pencil</v-icon></v-btn>
         <span>Задать вопрос</span>
       </v-tooltip>
       <v-tooltip bottom>

@@ -14,6 +14,7 @@ Vue.use(VueRouter);
 
 Vue.config.devtools = true;
 window.moment = Moment;
+window.moment.locale('ru');
 window.axios = Axios;
 
 window.axios.defaults.baseURL = 'http://localhost:8008/';
