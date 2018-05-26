@@ -6,7 +6,7 @@
           <span class="subheading white--text">{{ question.author.name }} {{ question.author.surname }} on {{ question.created_at }}</span>
           <h1 class="white--text" style="min-height: 150px">{{ question.text }}</h1>
           <v-layout row>
-            <v-chip small outline color="white" v-for="theme in question.themes" :key="theme">{{ theme.name }}</v-chip>
+            <v-chip small outline color="white" v-for="theme in question.themes" :key="theme.id">{{ theme.name }}</v-chip>
           </v-layout>
         </v-layout>
         <v-flex xs12 style="margin-bottom: -50px">
@@ -67,7 +67,7 @@
                       </v-avatar>
                     </v-flex>
                     <v-flex xs12>
-                      <span class="body-2">{{ answer.author.name }}</span>&nbsp;
+                      <span class="body-2">{{ answer.author.name }} {{ answer.author.surname }}</span>&nbsp;
                       <span class="body-1">
                         <v-icon color="green">mdi-star-outline</v-icon>
                         <span>{{ answer.author.rating }}</span>
@@ -77,7 +77,7 @@
                     </v-flex>
                   </v-layout>
                 </v-card-title>
-                <v-card-text>{{ answer.body }}</v-card-text>
+                <v-card-text>{{ answer.text }}</v-card-text>
                 <v-divider></v-divider>
                 <v-card-actions>
                   <v-btn icon small><v-icon :color="answer.like === true ? 'green' : ''">mdi-thumb-up-outline</v-icon></v-btn>
@@ -115,21 +115,31 @@
         </v-flex>
       </v-layout>
     </v-container>
+    <v-snackbar :color="snackbar.color" right v-model="snackbar.visible">
+      {{ snackbar.text }}
+      <v-btn dark flat @click.native="snackbar.visible = false">Close</v-btn>
+    </v-snackbar>
   </v-layout>
 </template>
 
 <script>
   export default {
     props: ['id'],
+    store: ['fallback'],
 
     data () {
       return {
         question: {},
         valid: false,
+        snackbar: {
+          visible: false,
+          text: '',
+          color: 'success'
+        },
         answer: '',
         answerRules: [
-          v => !!v || 'Answer is required',
-          v => v.length >= 140 || 'Answer must be more than 140 characters'
+          v => !!v || 'Нужно написать ответ на вопрос',
+          v => v.length >= 140 || 'Ответ должен быть длиной в 140 символов'
         ]
       }
     },
@@ -142,18 +152,26 @@
 
     methods: {
       submit() {
-        this.question.answers.push({
-          author: {
-            name: 'User Name',
-            about: 'ITMO Student',
-            rating: 35,
-            avatar: 'public/avatars/avatar-02.png'
-          },
-          created_at: window.moment().format('MMMM DD, H:mm'),
-          body: this.answer,
-          rating: 0
-        });
-        this.$refs.answerForm.reset();
+        window.axios.post(`/api/questions/${this.id}/answers`, {text: this.answer})
+                    .then(response => {
+                      this.snackbar.text = 'Ответ успешно опубликован!';
+                      this.snackbar.color = 'success';
+                      this.snackbar.visible = true;
+                      this.created();
+                      this.$refs.answerForm.reset();
+                    })
+                    .catch(error => {
+                      console.log(error);
+                      this.snackbar.text = error.message;
+                      this.snackbar.color = 'error';
+                      this.snackbar.visible = true;
+                    });
+      }
+    },
+
+    computed: {
+      avatar() {
+        return this.user.avatar === '' ? this.store.fallback.avatar : this.user.avatar;
       }
     }
   }

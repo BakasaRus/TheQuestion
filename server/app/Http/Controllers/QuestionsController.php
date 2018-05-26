@@ -10,7 +10,7 @@ class QuestionsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('api');
+        $this->middleware('auth:api');
     }
 
     public function index()
@@ -20,7 +20,7 @@ class QuestionsController extends Controller
 
     public function show(Question $question)
     {
-    	return $question->load(['themes', 'answers', 'author']);
+    	return $question->load(['themes', 'answers.author', 'author']);
     }
 
     public function store(Request $request)
@@ -32,7 +32,7 @@ class QuestionsController extends Controller
         ]);
         $question = new Question(['text' => $validated['text']]);
         // First user is anonymous
-        $question->author_id = $validated['anonymous'] ? $request->user->id : 1;
+        $question->author_id = $validated['anonymous'] ? $request->user()->id : 1;
         $question->save();
         foreach ($validated['themes'] as $themeName) {
             $theme = Theme::firstOrCreate(['name' => $themeName]);

@@ -17,7 +17,7 @@ window.moment = Moment;
 window.moment.locale('ru');
 window.axios = Axios;
 
-window.axios.defaults.baseURL = 'http://localhost:8008/';
+window.axios.defaults.baseURL = 'http://localhost:8008';
 
 new Vue({
   router,
@@ -27,7 +27,10 @@ new Vue({
     store: {
       user: false,
       tokens: false,
-      server: 'localhost:8008'
+      fallback: {
+        cover: 'http://verdewall.com/wp-content/uploads/2016/08/Background-Images-4H9.jpg',
+        avatar: 'https://cdn0.iconfinder.com/data/icons/shopping-197/48/bl_872_profile_avatar_anonymous_customer_user_head_human-512.png'
+      }
     }
   },
 

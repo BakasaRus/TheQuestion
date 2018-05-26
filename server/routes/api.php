@@ -23,4 +23,8 @@ Route::middleware('auth:api')->get('/logout', function (Request $request) {
 });
 
 Route::get('/questions', 'QuestionsController@index');
+Route::post('/questions', 'QuestionsController@store');
 Route::get('/questions/{question}', 'QuestionsController@show');
+Route::post('/questions/{question}/answers', 'AnswersController@store');
+
+Route::get('/users/{user}', 'UsersController@show');

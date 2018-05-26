@@ -19,7 +19,7 @@
       </v-tooltip>
       <template v-if="this.user">
         <v-tooltip bottom>
-          <v-btn icon large :to="'/user/' + this.user.id" slot="activator"><v-icon >mdi-account-circle</v-icon></v-btn>
+          <v-btn icon large :to="'/users/' + this.user.id" slot="activator"><v-icon >mdi-account-circle</v-icon></v-btn>
           <span>{{ this.user.name }} {{ this.user.surname }}</span>
         </v-tooltip>
         <v-tooltip bottom>
