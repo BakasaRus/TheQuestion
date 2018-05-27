@@ -1,9 +1,16 @@
 <template>
   <v-app>
     <v-toolbar fixed app>
-      <v-btn icon large to="/"><v-icon>mdi-home</v-icon></v-btn>
       <v-toolbar-title>The Answer</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-tooltip bottom>
+        <v-btn icon large slot="activator" to="/"><v-icon>mdi-home</v-icon></v-btn>
+        <span>На главную</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <v-btn icon large slot="activator" to="/topics"><v-icon>mdi-shape-outline</v-icon></v-btn>
+        <span>Все темы</span>
+      </v-tooltip>
       <v-tooltip bottom>
         <v-btn icon large slot="activator"><v-icon>mdi-magnify</v-icon></v-btn>
         <span>Поиск</span>

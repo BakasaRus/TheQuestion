@@ -7,6 +7,7 @@ import App from './layouts/App';
 import Moment from 'moment';
 import VueStash from 'vue-stash';
 import Axios from 'axios';
+import Share from './share';
 
 Vue.use(VueStash);
 Vue.use(Vuetify);
@@ -16,6 +17,7 @@ Vue.config.devtools = true;
 window.moment = Moment;
 window.moment.locale('ru');
 window.axios = Axios;
+window.share = Share;
 
 window.axios.defaults.baseURL = 'http://localhost:8008';
 

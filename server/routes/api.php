@@ -29,3 +29,5 @@ Route::post('/questions/{question}/answers', 'AnswersController@store');
 
 Route::get('/users/{user}', 'UsersController@show');
 Route::patch('/users/{user}/deactivate', 'UsersController@deactivate');
+
+Route::get('/themes', 'ThemesController@index');
