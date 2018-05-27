@@ -1,9 +1,11 @@
 <template>
   <v-layout column>
-    <div style="background-image: url(http://getwallpapers.com/wallpaper/full/a/3/b/430317.jpg); background-size: cover;">
+    <div :style="`background: linear-gradient(#00000044, #00000044), url(${cover}); background-size: cover;`">
       <v-container>
         <v-layout column my-5>
-          <span class="subheading white--text">{{ question.author.name }} {{ question.author.surname }} on {{ question.created_at }}</span>
+          <router-link class="subheading white--text" :to="`/users/${question.author_id}`">
+            {{ question.author.name }} {{ question.author.surname }} {{ question.created_at | readable }}
+          </router-link>
           <h1 class="white--text" style="min-height: 150px">{{ question.text }}</h1>
           <v-layout row>
             <v-chip small outline color="white" v-for="theme in question.themes" :key="theme.id">{{ theme.name }}</v-chip>
@@ -58,44 +60,14 @@
               <span class="title">{{ question.answers.length }} answers</span>
             </v-flex>
             <v-flex xs12 v-for="answer in question.answers" :key="answer.id">
-              <v-card>
-                <v-card-title>
-                  <v-layout row>
-                    <v-flex>
-                      <v-avatar size="50px">
-                        <img :src="answer.author.avatar" :alt="answer.author.name">
-                      </v-avatar>
-                    </v-flex>
-                    <v-flex xs12>
-                      <span class="body-2">{{ answer.author.name }} {{ answer.author.surname }}</span>&nbsp;
-                      <span class="body-1">
-                        <v-icon color="green">mdi-star-outline</v-icon>
-                        <span>{{ answer.author.rating }}</span>
-                      </span>&nbsp;
-                      <span class="body-1">{{ answer.created_at }}</span><br>
-                      <span class="body-1">{{ answer.author.about }}</span>
-                    </v-flex>
-                  </v-layout>
-                </v-card-title>
-                <v-card-text>{{ answer.text }}</v-card-text>
-                <v-divider></v-divider>
-                <v-card-actions>
-                  <v-btn icon small><v-icon :color="answer.like === true ? 'green' : ''">mdi-thumb-up-outline</v-icon></v-btn>
-                  <span class="caption">{{ answer.rating }}</span>
-                  <v-btn icon small><v-icon :color="answer.like === false ? 'red' : ''">mdi-thumb-down-outline</v-icon></v-btn>
-                  <v-spacer></v-spacer>
-                  <v-btn icon small dark color="light-blue darken-3"><v-icon>mdi-vk</v-icon></v-btn>
-                  <v-btn icon small dark color="light-blue darken-4"><v-icon>mdi-facebook</v-icon></v-btn>
-                  <v-btn icon small dark color="light-blue accent-4"><v-icon>mdi-telegram</v-icon></v-btn>
-                </v-card-actions>
-              </v-card>
+              <AnswerCard :answer="answer"></AnswerCard>
             </v-flex>
           </v-layout>
           <v-card>
             <v-card-text>
               <v-form v-model="valid" lazy-validation ref="answerForm">
                 <v-text-field
-                  label="Answer"
+                  label="Что Вы думаете по этому поводу?"
                   :placeholder="question.title"
                   v-model="answer"
                   :rules="answerRules"
@@ -123,9 +95,11 @@
 </template>
 
 <script>
+  import AnswerCard from '../components/AnswerCard.vue';
   export default {
     props: ['id'],
     store: ['fallback'],
+    components: {AnswerCard},
 
     data () {
       return {
@@ -145,19 +119,32 @@
     },
 
     created() {
-      window.axios.get('/api/questions/' + this.id)
-                  .then(response => this.question = response.data)
-                  .catch(error => console.log(error));
+      this.updateQuestion();
     },
 
     methods: {
+      updateQuestion() {
+        window.axios.get('/api/questions/' + this.id)
+                  .then(response => this.question = response.data)
+                  .catch(error => {
+                    console.log(error);
+                    if (error.response.status == 404) {
+                      this.$router.push('/404');
+                    }
+                    else {
+                      this.snackbar.text = error.message;
+                      this.snackbar.color = 'error';
+                      this.snackbar.visible = true;
+                    }
+                  });
+      },
       submit() {
         window.axios.post(`/api/questions/${this.id}/answers`, {text: this.answer})
                     .then(response => {
                       this.snackbar.text = 'Ответ успешно опубликован!';
                       this.snackbar.color = 'success';
                       this.snackbar.visible = true;
-                      this.created();
+                      this.updateQuestion();
                       this.$refs.answerForm.reset();
                     })
                     .catch(error => {
@@ -170,8 +157,15 @@
     },
 
     computed: {
-      avatar() {
-        return this.user.avatar === '' ? this.store.fallback.avatar : this.user.avatar;
+      cover() {
+        return this.question.cover === '' ? this.fallback.cover : this.question.cover;
+      }
+    },
+
+    filters: {
+      readable(date) {
+        if (date === null) return 'когда-то';
+        return window.moment(date).fromNow();
       }
     }
   }

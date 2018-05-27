@@ -28,3 +28,4 @@ Route::get('/questions/{question}', 'QuestionsController@show');
 Route::post('/questions/{question}/answers', 'AnswersController@store');
 
 Route::get('/users/{user}', 'UsersController@show');
+Route::patch('/users/{user}/deactivate', 'UsersController@deactivate');

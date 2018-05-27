@@ -1,16 +1,15 @@
 <template>
   <v-app>
     <v-toolbar fixed app>
-      <v-toolbar-title v-text="title">
-        <router-link to="/" exact></router-link>
-      </v-toolbar-title>
+      <v-btn icon large to="/"><v-icon>mdi-home</v-icon></v-btn>
+      <v-toolbar-title>The Answer</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-tooltip bottom>
         <v-btn icon large slot="activator"><v-icon>mdi-magnify</v-icon></v-btn>
         <span>Поиск</span>
       </v-tooltip>
       <v-tooltip bottom>
-        <v-btn icon large to="/question/ask" slot="activator"><v-icon>mdi-pencil</v-icon></v-btn>
+        <v-btn icon large to="/questions/ask" slot="activator"><v-icon>mdi-pencil</v-icon></v-btn>
         <span>Задать вопрос</span>
       </v-tooltip>
       <v-tooltip bottom>
@@ -38,7 +37,7 @@
     <v-footer height="auto" class="grey darken-3">
       <v-layout row wrap justify-center>
         <v-flex xs12 py-3 text-xs-center white--text>
-          &copy;2018 — <strong>{{ title }}</strong>
+          &copy;2018 — <strong>The Answer</strong>
         </v-flex>
       </v-layout>
     </v-footer>
@@ -50,7 +49,6 @@
     store: ['user'],
     data () {
       return {
-        title: 'The Question'
       }
     },
 

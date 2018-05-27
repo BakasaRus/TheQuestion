@@ -1,12 +1,12 @@
 <template>
   <v-card hover :to="`/questions/${question.id}`">
     <v-card-media :src="cover" height="300px">
-        <v-layout column ma-2 align-center>
-          <v-flex text-xs-center>
+        <v-layout column ma-2 align-center justify-center>
+          <v-flex text-xs-center style="flex-grow: 0">
             <h1 class="white--text">{{ question.text }}</h1>
-          </v-flex>
-          <v-flex>
-            <v-chip small outline color="white" v-for="theme in question.themes" :key="theme.id">{{ theme.name }}</v-chip>
+            <div>
+              <v-chip small outline color="white" v-for="theme in question.themes" :key="theme.id">{{ theme.name }}</v-chip>
+            </div>
           </v-flex>
         </v-layout>
     </v-card-media>
@@ -19,10 +19,8 @@
 <script>
   export default {
     props: ['question'],
+    store: ['fallback'],
     data: () => ({
-      fallback: {
-        cover: 'http://getwallpapers.com/wallpaper/full/a/3/b/430317.jpg'
-      }
     }),
 
     computed: {

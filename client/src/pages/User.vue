@@ -9,7 +9,10 @@
                 <img :src="avatar" style="background-color: white">
               </v-avatar>
               <v-layout column mx-5>
-                <h1 class="display-2 white--text">{{ user.name }} {{ user.surname }}</h1>
+                <h1 class="display-2 white--text">
+                  {{ user.name }} {{ user.surname }} 
+                  <v-icon color="white" x-large v-if="user.is_banned">mdi-emoticon-dead</v-icon>
+                </h1>
                 <span class="subheading white--text">{{ user.about }}</span>
               </v-layout>
               <v-layout column ml-5 align-end>
@@ -58,7 +61,7 @@
                     <v-list-tile @click="">
                       <v-list-tile-title>Abuse</v-list-tile-title>
                     </v-list-tile>
-                    <v-list-tile @click="">
+                    <v-list-tile @click="deactivate">
                       <v-list-tile-title>Deactivate</v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile @click="">
@@ -105,16 +108,29 @@
     created() {
       window.axios.get(`/api/users/${this.id}`)
                   .then(response => this.user = response.data)
-                  .catch(error => console.log(error));
+                  .catch(error => {
+                    console.log(error);
+                    if (error.response.status == 404) {
+                      this.$router.push('/404');
+                    }
+                  });
+    },
+
+    methods: {
+      deactivate() {
+        window.axios.patch(`/api/users/${this.id}/deactivate`)
+                    .then(response => console.log(response))
+                    .catch(error => console.log(error));
+      }
     },
 
     computed: {
       cover() {
-        return this.user.cover === '' ? this.store.fallback.cover : this.user.cover;
+        return this.user.cover === '' ? this.fallback.cover : this.user.cover;
       },
 
       avatar() {
-        return this.user.avatar === '' ? this.store.fallback.avatar : this.user.avatar;
+        return this.user.avatar === '' ? this.fallback.avatar : this.user.avatar;
       }
     }
   }

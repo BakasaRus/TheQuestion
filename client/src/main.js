@@ -28,8 +28,8 @@ new Vue({
       user: false,
       tokens: false,
       fallback: {
-        cover: 'http://verdewall.com/wp-content/uploads/2016/08/Background-Images-4H9.jpg',
-        avatar: 'https://cdn0.iconfinder.com/data/icons/shopping-197/48/bl_872_profile_avatar_anonymous_customer_user_head_human-512.png'
+        cover: 'public/fallbackBG.jpg',
+        avatar: 'public/fallbackAvatar.png'
       }
     }
   },

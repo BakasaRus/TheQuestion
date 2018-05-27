@@ -28,6 +28,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function findForPassport($identifier) {
+        return User::orWhere('email', $identifier)->where('is_banned', false)->first();
+    }
+
     public function questions()
     {
         return $this->hasMany(Question::class, 'author_id');

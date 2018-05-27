@@ -30,14 +30,15 @@ class QuestionsController extends Controller
             'themes' => 'required|min:1',
             'anonymous' => 'required'
         ]);
-        $question = new Question(['text' => $validated['text']]);
-        // First user is anonymous
-        $question->author_id = $validated['anonymous'] ? $request->user()->id : 1;
+        $question = new Question();
+        $question->text = $validated['text'];
+        // Second user is anonymous
+        $question->author_id = $validated['anonymous'] ? 2 : $request->user()->id;
         $question->save();
         foreach ($validated['themes'] as $themeName) {
             $theme = Theme::firstOrCreate(['name' => $themeName]);
             $question->themes()->attach($theme);
         }
-        return ['message' => 'Success!', 'question' => $question];
+        return ['message' => 'Success!', 'question_id' => $question->id];
     }
 }

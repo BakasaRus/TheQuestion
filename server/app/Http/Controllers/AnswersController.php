@@ -15,6 +15,8 @@ class AnswersController extends Controller
     
     public function store(Request $request, Question $question)
     {
+        if (!$question->is_opened)
+            return response(['message' => 'Question is closed'], 403);
     	$validated = $request->validate([
     		'text' => 'required|min:140'
     	]);
