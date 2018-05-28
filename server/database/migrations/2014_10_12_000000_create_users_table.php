@@ -24,8 +24,8 @@ class CreateUsersTable extends Migration
             $table->integer('role')->default(0);
             $table->boolean('is_banned')->default(false);
             $table->string('about')->default('Пользователь TheQuestion');
-            $table->string('avatar')->default('');
-            $table->string('cover')->default('');
+            $table->string('avatar')->default('public/fallbackAvatar.png');
+            $table->string('cover')->default('public/fallbackBG.jpg');
             $table->rememberToken();
             $table->timestamps();
         });

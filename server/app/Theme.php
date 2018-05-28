@@ -15,6 +15,6 @@ class Theme extends Model
 
     public function subscribers()
     {
-        return $this->manyMorph(Subscription::class, 'subscribeable');
+        return $this->morphMany(Subscription::class, 'subscribeable');
     }
 }

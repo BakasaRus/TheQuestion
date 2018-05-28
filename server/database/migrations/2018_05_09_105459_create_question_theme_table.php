@@ -18,14 +18,6 @@ class CreateQuestionThemeTable extends Migration
             $table->integer('question_id')->unsigned();
             $table->integer('theme_id')->unsigned();
             $table->timestamps();
-
-            $table->foreign('question_id')
-                    ->references('id')
-                    ->on('questions');
-
-            $table->foreign('theme_id')
-                    ->references('id')
-                    ->on('themes');
         });
     }
 
@@ -36,10 +28,6 @@ class CreateQuestionThemeTable extends Migration
      */
     public function down()
     {
-        Schema::table('question_theme', function (Blueprint $table) {
-            $table->dropForeign(['question_id']);
-            $table->dropForeign(['theme_id']);
-        });
         Schema::dropIfExists('question_theme');
     }
 }

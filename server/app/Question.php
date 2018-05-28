@@ -13,12 +13,12 @@ class Question extends Model
 
     public function comments()
     {
-    	return $this->manyMorph(Comment::class, 'commentable');
+    	return $this->morphMany(Comment::class, 'commentable');
     }
 
     public function subscribers()
     {
-        return $this->manyMorph(Subscription::class, 'subscribeable');
+        return $this->morphMany(Subscription::class, 'subscribeable');
     }
 
     public function answers()
@@ -28,7 +28,7 @@ class Question extends Model
 
     public function votes()
     {
-    	return $this->manyMorph(Vote::class, 'voteable');
+    	return $this->morphMany(Vote::class, 'voteable');
     }
 
     public function themes()

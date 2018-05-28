@@ -49,7 +49,7 @@
                       this.snackbar.text = 'Вопрос опубликован! Сейчас мы Вас перенаправим на его страницу';
                       this.snackbar.color = 'success';
                       this.snackbar.visible = true;
-                      this.$route.push(`/questions/${response.data.question_id}`);
+                      this.$router.push(`/questions/${response.data.question_id}`);
                     })
                     .catch(error => {
                       this.snackbar.text = error.message;

@@ -31,3 +31,6 @@ Route::get('/users/{user}', 'UsersController@show');
 Route::patch('/users/{user}/deactivate', 'UsersController@deactivate');
 
 Route::get('/themes', 'ThemesController@index');
+
+Route::get('/{model}/{id}/comments', 'CommentsController@show');
+Route::post('/{model}/{id}/comments', 'CommentsController@store');

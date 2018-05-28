@@ -35,7 +35,7 @@
         let data = {
         'grant_type': 'password',
         'client_id': 2,
-        'client_secret': 'n7EzRgWStuI7tqW1Fatkho5sJWRDTLG8HxRkSIIR',
+        'client_secret': 'fsRluIujFNSzK9yOanJja1e4FtfxS8QeACnVYmuL',
         'username': this.email,
         'password':  this.password,
         'scope': '',

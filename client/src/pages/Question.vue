@@ -15,20 +15,20 @@
           <v-card>
             <v-toolbar card>
               <v-btn flat :icon="$vuetify.breakpoint.xsOnly">
-                <v-icon>mdi-comment-plus-outline</v-icon>
-                <span v-if="$vuetify.breakpoint.smAndUp">&nbsp;Answer</span>
+                <v-icon :left="$vuetify.breakpoint.smAndUp">mdi-comment-plus-outline</v-icon>
+                <span v-if="$vuetify.breakpoint.smAndUp">Ответить</span>
               </v-btn>
               <v-btn flat :icon="$vuetify.breakpoint.xsOnly">
-                <v-icon>mdi-heart-outline</v-icon>
-                <span v-if="$vuetify.breakpoint.smAndUp">&nbsp;Like</span>
+                <v-icon :left="$vuetify.breakpoint.smAndUp">mdi-heart-outline</v-icon>
+                <span v-if="$vuetify.breakpoint.smAndUp">Нравится</span>
+              </v-btn>
+              <v-btn flat :icon="$vuetify.breakpoint.xsOnly" :to="`/questions/${id}/comments`">
+                <v-icon :left="$vuetify.breakpoint.smAndUp">mdi-comment-text-multiple-outline</v-icon>
+                <span v-if="$vuetify.breakpoint.smAndUp">Комментировать</span>
               </v-btn>
               <v-btn flat :icon="$vuetify.breakpoint.xsOnly">
-                <v-icon>mdi-comment-text-multiple-outline</v-icon>
-                <span v-if="$vuetify.breakpoint.smAndUp">&nbsp;Comment</span>
-              </v-btn>
-              <v-btn flat :icon="$vuetify.breakpoint.xsOnly">
-                <v-icon>mdi-bell-ring-outline</v-icon>
-                <span v-if="$vuetify.breakpoint.smAndUp">&nbsp;Subscribe</span>
+                <v-icon :left="$vuetify.breakpoint.smAndUp">mdi-bell-ring-outline</v-icon>
+                <span v-if="$vuetify.breakpoint.smAndUp">Подписаться</span>
               </v-btn>
               <v-spacer></v-spacer>
               <v-menu bottom left>
@@ -57,7 +57,7 @@
         <v-flex xs12 lg8>
           <v-layout column>
             <v-flex xs12>
-              <span class="title">{{ question.answers.length }} answers</span>
+              <span class="title">{{ question.answers.length }} ответ(а/ов)</span>
             </v-flex>
             <v-flex xs12 v-for="answer in question.answers" :key="answer.id">
               <AnswerCard :answer="answer"></AnswerCard>
@@ -75,8 +75,8 @@
                   multi-line
                   rows="7"
                 ></v-text-field>
-                <v-btn @click="submit" :disabled="!valid">
-                  Submit
+                <v-btn @click="submit" :disabled="!valid" color="primary">
+                  Ответить
                 </v-btn>
               </v-form>
             </v-card-text>

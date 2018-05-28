@@ -32,8 +32,8 @@ class QuestionsController extends Controller
         ]);
         $question = new Question();
         $question->text = $validated['text'];
-        // Second user is anonymous
-        $question->author_id = $validated['anonymous'] ? 2 : $request->user()->id;
+        // First user is anonymous
+        $question->author_id = $validated['anonymous'] ? 1 : $request->user()->id;
         $question->save();
         foreach ($validated['themes'] as $themeName) {
             $theme = Theme::firstOrCreate(['name' => $themeName]);

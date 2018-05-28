@@ -21,10 +21,6 @@ class CreateQuestionsTable extends Migration
             $table->boolean('is_opened')->default(true);
             $table->string('cover')->default('');
             $table->timestamps();
-
-            $table->foreign('author_id')
-                    ->references('id')
-                    ->on('users');
         });
     }
 
@@ -35,9 +31,6 @@ class CreateQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::table('questions', function (Blueprint $table) {
-            $table->dropForeign(['author_id']);
-        });
         Schema::dropIfExists('questions');
     }
 }

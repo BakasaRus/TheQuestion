@@ -18,12 +18,18 @@
         </v-flex>
       </v-layout>
     </v-card-title>
-    <v-card-text class="whitespace">{{ answer.text }}</v-card-text>
+    <v-card-text class="whitespace">
+    	<p>{{ answer.text }}</p>
+    </v-card-text>
     <v-divider></v-divider>
     <v-card-actions>
       <v-btn icon small><v-icon :color="answer.like === true ? 'green' : ''">mdi-thumb-up-outline</v-icon></v-btn>
       <span class="caption">{{ answer.rating }}</span>
       <v-btn icon small><v-icon :color="answer.like === false ? 'red' : ''">mdi-thumb-down-outline</v-icon></v-btn>
+      <v-btn flat :to="`/answers/${answer.id}/comments`">
+        <v-icon :left="$vuetify.breakpoint.smAndUp">mdi-comment-text-multiple-outline</v-icon>
+        <span v-if="$vuetify.breakpoint.smAndUp">Комментировать</span>
+      </v-btn>
       <v-spacer></v-spacer>
       <v-btn icon small dark color="light-blue darken-3"><v-icon>mdi-vk</v-icon></v-btn>
       <v-btn icon small dark color="light-blue darken-4"><v-icon>mdi-facebook</v-icon></v-btn>

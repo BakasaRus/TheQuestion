@@ -18,10 +18,6 @@ class CreateSubscriptionsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->morphs('subscribeable');
             $table->timestamps();
-
-            $table->foreign('user_id')
-                    ->references('id')
-                    ->on('users');
         });
     }
 
@@ -32,9 +28,6 @@ class CreateSubscriptionsTable extends Migration
      */
     public function down()
     {
-        Schema::table('subscriptions', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-        });
         Schema::dropIfExists('subscriptions');
     }
 }
