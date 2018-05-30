@@ -11,7 +11,7 @@
         </v-layout>
     </v-card-media>
     <v-card-text v-if="question.answers && question.answers.length">
-      <span class="subheading">{{ question.answers[0] | cutAnswer }}</span>
+      <span class="subheading">{{ question.answers[0].text | cutAnswer }}</span>
     </v-card-text>
   </v-card>
 </template>

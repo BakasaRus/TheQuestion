@@ -27,6 +27,7 @@ Route::post('/questions', 'QuestionsController@store');
 Route::get('/questions/{question}', 'QuestionsController@show');
 Route::post('/questions/{question}/answers', 'AnswersController@store');
 
+Route::post('/users', 'UsersController@store');
 Route::get('/users/{user}', 'UsersController@show');
 Route::patch('/users/{user}/deactivate', 'UsersController@deactivate');
 
@@ -34,3 +35,5 @@ Route::get('/themes', 'ThemesController@index');
 
 Route::get('/{model}/{id}/comments', 'CommentsController@show');
 Route::post('/{model}/{id}/comments', 'CommentsController@store');
+
+Route::post('/{model}/{id}/votes/{status}', 'VotesController@store');

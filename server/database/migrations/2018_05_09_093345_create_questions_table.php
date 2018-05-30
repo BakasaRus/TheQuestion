@@ -21,6 +21,7 @@ class CreateQuestionsTable extends Migration
             $table->boolean('is_opened')->default(true);
             $table->string('cover')->default('');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

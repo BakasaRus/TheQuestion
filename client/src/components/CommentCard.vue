@@ -21,11 +21,11 @@
     <v-card-text class="whitespace">{{ comment.text }}</v-card-text>
     <v-divider></v-divider>
     <v-card-actions>
-      <v-btn icon small><v-icon :color="comment.like === true ? 'green' : ''">mdi-thumb-up-outline</v-icon></v-btn>
+      <v-btn icon small @click="vote('up')"><v-icon :color="comment.like === true ? 'green' : ''">mdi-thumb-up-outline</v-icon></v-btn>
       <span class="caption">{{ comment.rating }}</span>
-      <v-btn icon small><v-icon :color="comment.like === false ? 'red' : ''">mdi-thumb-down-outline</v-icon></v-btn>
+      <v-btn icon small @click="vote('up')"><v-icon :color="comment.like === false ? 'red' : ''">mdi-thumb-down-outline</v-icon></v-btn>
       <v-spacer></v-spacer>
-      <v-btn icon small dark color="light-blue darken-3"><v-icon>mdi-vk</v-icon></v-btn>
+      <v-btn icon small dark color="light-blue darken-3" :href="vkLink" target="_blank"><v-icon>mdi-vk</v-icon></v-btn>
       <v-btn icon small dark color="light-blue darken-4"><v-icon>mdi-facebook</v-icon></v-btn>
       <v-btn icon small dark color="light-blue accent-4"><v-icon>mdi-telegram</v-icon></v-btn>
     </v-card-actions>
@@ -37,9 +37,21 @@
     props: ['comment'],
     store: ['fallback'],
 
+    methods: {
+      vote(status) {
+        window.axios.post(`/api/comments/${this.comment.id}/votes/${status}`)
+                    .then(response => console.log(response))
+                    .catch(error => console.log(error));
+      }
+    },
+
     computed: {
       avatar() {
         return this.comment.author.avatar === '' ? this.fallback.avatar : this.comment.author.avatar;
+      },
+
+      vkLink() {
+        return `https://vk.com/share.php?url=${encodeURIComponent('http://localhost:8081' + this.$router.currentRoute.fullPath)}`;
       }
     },
 

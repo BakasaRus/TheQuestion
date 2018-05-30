@@ -20,6 +20,7 @@ class CreateCommentsTable extends Migration
             $table->integer('author_id')->unsigned();
             $table->morphs('commentable');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

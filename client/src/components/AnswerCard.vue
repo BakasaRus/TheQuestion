@@ -23,15 +23,15 @@
     </v-card-text>
     <v-divider></v-divider>
     <v-card-actions>
-      <v-btn icon small><v-icon :color="answer.like === true ? 'green' : ''">mdi-thumb-up-outline</v-icon></v-btn>
+      <v-btn icon small @click="vote('up')"><v-icon :color="answer.like === true ? 'green' : ''">mdi-thumb-up-outline</v-icon></v-btn>
       <span class="caption">{{ answer.rating }}</span>
-      <v-btn icon small><v-icon :color="answer.like === false ? 'red' : ''">mdi-thumb-down-outline</v-icon></v-btn>
+      <v-btn icon small @click="vote('down')"><v-icon :color="answer.like === false ? 'red' : ''">mdi-thumb-down-outline</v-icon></v-btn>
       <v-btn flat :to="`/answers/${answer.id}/comments`">
         <v-icon :left="$vuetify.breakpoint.smAndUp">mdi-comment-text-multiple-outline</v-icon>
         <span v-if="$vuetify.breakpoint.smAndUp">Комментировать</span>
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn icon small dark color="light-blue darken-3"><v-icon>mdi-vk</v-icon></v-btn>
+      <v-btn icon small dark color="light-blue darken-3" :href="vkLink"><v-icon>mdi-vk</v-icon></v-btn>
       <v-btn icon small dark color="light-blue darken-4"><v-icon>mdi-facebook</v-icon></v-btn>
       <v-btn icon small dark color="light-blue accent-4"><v-icon>mdi-telegram</v-icon></v-btn>
     </v-card-actions>
@@ -43,9 +43,21 @@
     props: ['answer'],
     store: ['fallback'],
 
+    methods: {
+      vote(status) {
+        window.axios.post(`/api/answers/${this.answer.id}/votes/${status}`)
+                    .then(response => console.log(response))
+                    .catch(error => console.log(error));
+      }
+    },
+
     computed: {
       avatar() {
         return this.answer.author.avatar === '' ? this.fallback.avatar : this.answer.author.avatar;
+      },
+
+      vkLink() {
+        return `https://vk.com/share.php?url=${encodeURIComponent('http://localhost:8081' + this.$router.currentRoute.fullPath)}&title=${encodeURIComponent('The Answer')}`;
       }
     },
 

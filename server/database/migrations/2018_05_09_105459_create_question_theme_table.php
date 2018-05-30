@@ -18,6 +18,7 @@ class CreateQuestionThemeTable extends Migration
             $table->integer('question_id')->unsigned();
             $table->integer('theme_id')->unsigned();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

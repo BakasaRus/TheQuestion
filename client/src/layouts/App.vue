@@ -33,10 +33,16 @@
           <span>Выйти</span>
         </v-tooltip>
       </template>
-      <v-tooltip bottom v-else>
-        <v-btn icon large to="/login" slot="activator"><v-icon>mdi-login</v-icon></v-btn>
-        <span>Войти</span>
-      </v-tooltip>
+      <template v-else>
+        <v-tooltip bottom>
+          <v-btn icon large to="/signup" slot="activator"><v-icon>mdi-account-plus</v-icon></v-btn>
+          <span>Зарегистрироваться</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <v-btn icon large to="/login" slot="activator"><v-icon>mdi-login</v-icon></v-btn>
+          <span>Войти</span>
+        </v-tooltip>
+      </template>
     </v-toolbar>
     <v-content>
       <router-view></router-view>

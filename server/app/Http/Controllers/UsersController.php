@@ -9,12 +9,27 @@ class UsersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth:api')->except(['show', 'store']);
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'login' => 'required|unique:users',
+            'email' => 'required|unique:users',
+            'password' => 'required|min:10|confirmed',
+            'name' => 'required',
+            'surname' => 'required'
+        ]);
+
+        User::create($validated);
+
+        return ['message' => 'Success!'];
     }
 
     public function show(User $user)
     {
-    	return $user->load(['answers', 'questions.themes', 'subscriptions']);
+    	return $user->load(['answers', 'questions.themes', 'questions.answers', 'subscriptions']);
     }
 
     public function deactivate(Request $request, User $user)

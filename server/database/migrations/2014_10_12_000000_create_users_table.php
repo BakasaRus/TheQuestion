@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('cover')->default('public/fallbackBG.jpg');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

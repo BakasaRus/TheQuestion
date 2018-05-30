@@ -8,7 +8,8 @@ const routes = [
   { path: '/login', component: require('./pages/Login.vue').default },
   { path: '/404', component: require('./pages/404.vue').default },
   { path: '/topics', component: require('./pages/Topics.vue').default },
-  { path: '/:type/:id/comments', component: require('./pages/Comments.vue').default, props: true }
+  { path: '/:type/:id/comments', component: require('./pages/Comments.vue').default, props: true },
+  { path: '/signup', component: require('./pages/SignUp.vue').default }
 ]
 
 export default new VueRouter({

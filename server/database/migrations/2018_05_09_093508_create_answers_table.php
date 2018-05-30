@@ -21,6 +21,7 @@ class CreateAnswersTable extends Migration
             $table->integer('question_id')->unsigned();
             $table->integer('author_id')->unsigned();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

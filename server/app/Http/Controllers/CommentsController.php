@@ -11,7 +11,7 @@ class CommentsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth:api')->except(['show']);
     }
 
     public function show($model, $id)

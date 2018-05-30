@@ -18,6 +18,7 @@ class CreateSubscriptionsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->morphs('subscribeable');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

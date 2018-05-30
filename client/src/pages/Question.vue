@@ -18,9 +18,12 @@
                 <v-icon :left="$vuetify.breakpoint.smAndUp">mdi-comment-plus-outline</v-icon>
                 <span v-if="$vuetify.breakpoint.smAndUp">Ответить</span>
               </v-btn>
-              <v-btn flat :icon="$vuetify.breakpoint.xsOnly">
-                <v-icon :left="$vuetify.breakpoint.smAndUp">mdi-heart-outline</v-icon>
-                <span v-if="$vuetify.breakpoint.smAndUp">Нравится</span>
+              <v-btn flat :icon="$vuetify.breakpoint.xsOnly" @click="upvote">
+                <v-badge color="primary">
+                  <span slot="badge" dark small v-text="question.rating"></span>
+                  <v-icon :left="$vuetify.breakpoint.smAndUp">mdi-heart-outline</v-icon>
+                  <span v-if="$vuetify.breakpoint.smAndUp">Нравится</span>
+                </v-badge>
               </v-btn>
               <v-btn flat :icon="$vuetify.breakpoint.xsOnly" :to="`/questions/${id}/comments`">
                 <v-icon :left="$vuetify.breakpoint.smAndUp">mdi-comment-text-multiple-outline</v-icon>
@@ -142,6 +145,22 @@
         window.axios.post(`/api/questions/${this.id}/answers`, {text: this.answer})
                     .then(response => {
                       this.snackbar.text = 'Ответ успешно опубликован!';
+                      this.snackbar.color = 'success';
+                      this.snackbar.visible = true;
+                      this.updateQuestion();
+                    })
+                    .catch(error => {
+                      console.log(error);
+                      this.snackbar.text = error.message;
+                      this.snackbar.color = 'error';
+                      this.snackbar.visible = true;
+                    });
+      },
+
+      vote(status) {
+        window.axios.post(`/api/questions/${this.id}/votes/${status}`)
+                    .then(response => {
+                      this.snackbar.text = 'Успешно!';
                       this.snackbar.color = 'success';
                       this.snackbar.visible = true;
                       this.updateQuestion();
